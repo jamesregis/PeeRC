@@ -1,0 +1,30 @@
+Le but de PeeRC est de faire un chat paire à paire sécurisé.
+Chaque client peut être un simple client ou un client faisant aussi relay
+pour les clients qui se seront connectés à lui.
+
+Le format des données est le suivant : 
+ - une entête ACTION de 10 octets (80 bits) qui spécifiera l'action que veut 
+ entreprendre le client
+ - un second champs SOURCE  de 10 octets (80 bits) qui identifiera le client par un id
+ - un troisième champs DESTINATION de 10 octets (80 bits) qui indiquera à qui
+ s'adresse le message
+ - un quatrième champs MESSAGE qui contiendra le message à envoyé.
+
+Les données peuvent prendre les valeurs suivantes : 
+ - ACTION : LOGIN, LOGOUT, TCHAT, SERVICE
+ - SOURCE : id de l'utilisateur envoyant le message
+ - DESTINATION : PUBLIC, PRIVATE 
+ - MESSAGE : ce qu'on désire envoyer
+
+/* Les message de type SERVICE sont des messages interne */
+
+Le fonctionnement de PeeRC est le suivant :
+
+ - Avant le démarrage du chat, il faut spécifier si on veut localement jouer
+ le rôle de simple client (sans relay) ou être client-relay en permettant à
+ un nombre fixé de client à se connecter au service proposé.
+ - A la première connection, on envoie un message composé de : 
+     - ACTION : LOGIN
+     - SOURCE : nom_de_login
+     - DESTINATION : PUBLIC
+     - MESSAGE : contiendra la clé pr
